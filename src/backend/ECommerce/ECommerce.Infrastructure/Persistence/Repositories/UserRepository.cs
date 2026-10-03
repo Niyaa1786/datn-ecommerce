@@ -13,7 +13,6 @@ namespace ECommerce.Infrastructure.Persistence.Repositories
         private readonly AppDbContext _context;
         public UserRepository(AppDbContext context) => _context = context;
 
-
         public async Task<IEnumerable<User>> GetAllWithDetailsAsync(CancellationToken ct)
             => await _context.Users
                 .AsNoTracking()
