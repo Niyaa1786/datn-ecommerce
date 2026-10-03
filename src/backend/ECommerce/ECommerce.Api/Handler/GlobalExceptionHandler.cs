@@ -26,7 +26,8 @@ namespace ECommerce.Api.Handler
             else if (exception is DomainException domainEx)
             {
                 statusCode = (int)HttpStatusCode.BadRequest;
-                message = domainEx.Message;
+                message = "Validation failed.";
+                errors = domainEx.Message;
             }
             else if (exception is NotFoundException notFoundEx)
             {
