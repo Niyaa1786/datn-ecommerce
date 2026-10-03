@@ -1,8 +1,10 @@
-﻿using ECommerce.Infrastructure.Persistence.Data;
+﻿using ECommerce.Application.Common.Interfaces;
+using ECommerce.Infrastructure.Persistence.Data;
+using ECommerce.Infrastructure.Persistence.Repositories;
+using ECommerce.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 
 namespace ECommerce.Infrastructure
 {
@@ -12,6 +14,11 @@ namespace ECommerce.Infrastructure
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
             return services;
         }
