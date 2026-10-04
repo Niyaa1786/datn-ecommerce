@@ -1,8 +1,8 @@
 ﻿using ECommerce.Api.Responses;
 using ECommerce.Application.Common.Exceptions;
+using ECommerce.Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Mille.Domain.Exceptions;
 using System.Net;
 using System.Text.Json;
 

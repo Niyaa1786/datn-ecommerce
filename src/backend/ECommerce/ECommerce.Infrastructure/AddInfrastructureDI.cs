@@ -2,6 +2,7 @@
 using ECommerce.Infrastructure.Persistence.Data;
 using ECommerce.Infrastructure.Persistence.Repositories;
 using ECommerce.Infrastructure.Security;
+using ECommerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ namespace ECommerce.Infrastructure
 
             services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
+            services.AddScoped<IFileUploadService, CloudinaryService>();
 
             return services;
         }
