@@ -7,6 +7,7 @@ namespace ECommerce.Domain.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User, Guid>
     {
+        Task<IEnumerable<User>> GetAllWithDetailsAsync(CancellationToken ct = default);
         Task<User?> GetByEmailAsync(string email, CancellationToken ct = default);
         Task<User?> GetByRefreshTokenAsync(string refreshToken, CancellationToken ct = default);
     }

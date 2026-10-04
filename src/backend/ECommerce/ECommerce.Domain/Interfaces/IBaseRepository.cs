@@ -7,7 +7,6 @@ namespace ECommerce.Domain.Interfaces
 {
     public interface IBaseRepository<T, TId> where T : class
     {
-        Task<IEnumerable<T>> GetAllWithDetailsAsync(CancellationToken ct = default);
         Task<T?> GetByIdAsync(TId id, CancellationToken ct = default);
 
         void Add(T entity);
