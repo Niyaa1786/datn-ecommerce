@@ -27,7 +27,7 @@ namespace ECommerce.Application.Features.Products.CreateProduct
 
             var category = await _unitOfWork.Categories.GetByIdAsync(request.CategoryId, ct);
             if (category is null || category.IsDeleted)
-                throw new NotFoundException($"Category with name {request.Name} not found.");
+                throw new NotFoundException(nameof(Category), request.CategoryId);
 
             var skus = request.Variants.Select(s => s.SKU).ToList();
             if (skus.Count != skus.Distinct().Count())
