@@ -14,7 +14,7 @@ namespace ECommerce.Application.Features.Auth.ChangePassword
                 .MinimumLength(6).WithMessage("Password must be at least 6 characters.")
                 .MaximumLength(100).WithMessage("Password must not exceed 100 characters.");
 
-            RuleFor(x => x.OldPassword)
+            RuleFor(x => x.CurrentPassword)
                 .NotEmpty().WithMessage("Old password is required");
         }
     }
