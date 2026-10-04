@@ -28,7 +28,7 @@ namespace ECommerce.Application.Features.Users.UploadAvatar
             var publicId = request.UserId.ToString();
             var overWrite = true;
 
-            var avatarUrl = await _fileUploadService.UploadFileAsync(request.file, folderName, publicId, overWrite, ct);
+            var avatarUrl = await _fileUploadService.UploadFileAsync(request.File, folderName, publicId, overWrite, ct);
 
             user.UpdateAvatar(avatarUrl.ImgUrl);
             await _unitOfWork.SaveChangesAsync(ct);

@@ -10,6 +10,6 @@ namespace ECommerce.Application.Features.Users.UploadAvatar
     {
         [JsonIgnore]
         public Guid UserId { get; set; }
-        public IFormFile file { get; set; } = default!;
+        public IFormFile File { get; set; } = default!;
     }
 }
