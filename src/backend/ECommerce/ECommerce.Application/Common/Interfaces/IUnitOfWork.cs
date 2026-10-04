@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using ECommerce.Domain.Interfaces;
-using Mille.Domain.Interfaces;
 
 namespace ECommerce.Application.Common.Interfaces
 {
