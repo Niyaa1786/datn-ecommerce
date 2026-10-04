@@ -35,6 +35,9 @@ namespace ECommerce.Infrastructure.Persistence.Repositories
         public async Task<bool> IsExistBySkuAsync(string sku, CancellationToken ct)
             => await _context.ProductVariants.AnyAsync(v => v.SKU == sku, ct);
 
+        public async Task<bool> IsExistByIdAsync(Guid id, CancellationToken ct)
+            => await _context.ProductVariants.AnyAsync(v => v.Id == id, ct);
+
         public void Add(ProductVariant entity) => _context.ProductVariants.Add(entity);
         public void Update(ProductVariant entity) => _context.ProductVariants.Update(entity);
         public void Remove(ProductVariant entity) => _context.ProductVariants.Remove(entity);
