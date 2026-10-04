@@ -12,6 +12,7 @@ namespace ECommerce.Infrastructure.Persistence.Data
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,15 @@ namespace ECommerce.Infrastructure.Persistence.Data
                 entity.Property(e => e.ReceiverName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.ReceiverPhone).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.AddressLine).IsRequired().HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.HasIndex(e => e.Name).IsUnique();
             });
 
             SeedData(modelBuilder);
