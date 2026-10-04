@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using ECommerce.Domain.Interfaces;
-using ECommerce.Domain.Interfaces;
 
 namespace ECommerce.Application.Common.Interfaces
 {
@@ -10,6 +9,9 @@ namespace ECommerce.Application.Common.Interfaces
     {
         IUserRepository Users { get; }
         ICategoryRepository Categories { get; }
+        IProductRepository Products { get; }
+        IProductVariantRepository ProductVariants { get; }
+        IProductImageRepository ProductImages { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
