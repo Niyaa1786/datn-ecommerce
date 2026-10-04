@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mille.Domain.Exceptions
+namespace ECommerce.Domain.Exceptions
 {
     public class DomainException : Exception
     {

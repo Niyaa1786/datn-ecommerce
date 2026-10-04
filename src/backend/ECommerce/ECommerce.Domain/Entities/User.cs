@@ -1,5 +1,5 @@
 ﻿using ECommerce.Domain.Enums;
-using Mille.Domain.Exceptions;
+using ECommerce.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
