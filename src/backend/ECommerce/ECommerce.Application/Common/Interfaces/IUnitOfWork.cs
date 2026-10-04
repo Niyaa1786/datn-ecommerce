@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ECommerce.Domain.Interfaces;
+using Mille.Domain.Interfaces;
 
 namespace ECommerce.Application.Common.Interfaces
 {
@@ -12,6 +13,8 @@ namespace ECommerce.Application.Common.Interfaces
         IProductRepository Products { get; }
         IProductVariantRepository ProductVariants { get; }
         IProductImageRepository ProductImages { get; }
+        ICartRepository Carts { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

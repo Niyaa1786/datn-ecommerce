@@ -19,6 +19,9 @@ namespace ECommerce.Infrastructure.Persistence.Data
         public DbSet<ProductVariant> ProductVariants { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
 
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity =>
@@ -102,6 +105,38 @@ namespace ECommerce.Infrastructure.Persistence.Data
                       .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasIndex(i => i.PublicId);
+            });
+
+            modelBuilder.Entity<Cart>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(c => c.User)
+                      .WithOne()
+                      .HasForeignKey<Cart>(c => c.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasMany(c => c.Items)
+                      .WithOne(i => i.Cart)
+                      .HasForeignKey(i => i.CartId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+
+                entity.HasIndex(e => e.UserId).IsUnique();
+            });
+
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Quantity).IsRequired();
+
+                entity.HasOne(i => i.ProductVariant)
+                      .WithMany()
+                      .HasForeignKey(i => i.ProductVariantId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasIndex(e => new { e.CartId, e.ProductVariantId }).IsUnique();
             });
 
             SeedData(modelBuilder);
