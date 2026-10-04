@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 src/backend/ECommerce/ECommerce.Api/appsettings.json
+src/backend/ECommerce/repomix-output.md
