@@ -13,6 +13,8 @@ namespace ECommerce.Application.Common.Interfaces
         IProductVariantRepository ProductVariants { get; }
         IProductImageRepository ProductImages { get; }
         ICartRepository Carts { get; }
+        IOrderRepository Orders { get; }
+        IPaymentRepository Payments { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

@@ -13,6 +13,8 @@ namespace ECommerce.Infrastructure.Persistence.Repositories
         private IProductVariantRepository _productVariantRepository;
         private IProductImageRepository _productImageRepository;
         private ICartRepository _cartRepository;
+        private IOrderRepository _orderRepository;
+        private IPaymentRepository _paymentRepository;
 
         public UnitOfWork(AppDbContext context) => _context = context;
 
@@ -22,6 +24,8 @@ namespace ECommerce.Infrastructure.Persistence.Repositories
         public IProductVariantRepository ProductVariants => _productVariantRepository ??= new ProductVariantRepository(_context);
         public IProductImageRepository ProductImages => _productImageRepository ??= new ProductImageRepository(_context);
         public ICartRepository Carts => _cartRepository ??= new CartRepository(_context);
+        public IOrderRepository Orders => _orderRepository ??= new OrderRepository(_context);
+        public IPaymentRepository Payments => _paymentRepository ??= new PaymentRepository(_context);
 
         public Task<int> SaveChangesAsync(CancellationToken ct = default) => _context.SaveChangesAsync(ct);
     }
