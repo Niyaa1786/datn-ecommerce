@@ -53,6 +53,17 @@ try
                 IssuerSigningKey = key
             };
         });
+
+    //Register CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+    });
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();
     builder.Services.AddSerilog();
@@ -68,6 +79,8 @@ try
     app.UseExceptionHandler();
 
     app.UseSerilogRequestLogging();
+
+    app.UseCors();
 
     app.UseHttpsRedirection();
 
