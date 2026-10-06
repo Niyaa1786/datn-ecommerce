@@ -42,6 +42,16 @@ namespace ECommerce.Application.Features.Orders.UpdateOrderStatus
                     if (variant != null)
                         variant.Restock(item.Quantity);
                 }
+
+                if (order.CouponId.HasValue)
+                {
+                    var coupon = await unitOfWork.Coupons.GetByIdAsync(order.CouponId.Value, ct);
+                    coupon?.Release();
+
+                    var usage = await unitOfWork.Coupons.GetUsageByOrderIdAsync(order.Id, ct);
+                    if (usage != null)
+                        unitOfWork.Coupons.RemoveUsage(usage);
+                }
             }
 
 
