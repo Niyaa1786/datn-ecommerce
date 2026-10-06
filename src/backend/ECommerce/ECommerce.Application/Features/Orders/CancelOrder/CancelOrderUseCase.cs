@@ -27,6 +27,16 @@ namespace ECommerce.Application.Features.Orders.CancelOrder
                 variant.Restock(item.Quantity);
             }
 
+            if (order.CouponId.HasValue)
+            {
+                var coupon = await unitOfWork.Coupons.GetByIdAsync(order.CouponId.Value, ct);
+                coupon?.Release();
+
+                var usage = await unitOfWork.Coupons.GetUsageByOrderIdAsync(order.Id, ct);
+                if (usage != null)
+                    unitOfWork.Coupons.RemoveUsage(usage);
+            }
+
             await unitOfWork.SaveChangesAsync(ct);
 
             return new CancelOrderResponse();
