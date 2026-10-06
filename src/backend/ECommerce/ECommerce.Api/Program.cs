@@ -80,9 +80,9 @@ try
 
     app.UseSerilogRequestLogging();
 
-    app.UseCors();
-
     app.UseHttpsRedirection();
+
+    app.UseCors();
 
     app.UseAuthentication();
 
