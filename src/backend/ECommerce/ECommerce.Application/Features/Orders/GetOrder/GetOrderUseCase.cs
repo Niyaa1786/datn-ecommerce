@@ -24,6 +24,7 @@ namespace ECommerce.Application.Features.Orders.GetOrder
                 ShippingAddress = order.ShippingAddress,
                 TotalAmount = order.TotalAmount,
                 DiscountAmount = order.DiscountAmount,
+                CouponCode = order.Coupon?.Code,
                 Status = order.Status.ToString(),
                 CreatedAt = order.CreatedAt,
                 UpdatedAt = order.UpdatedAt,
