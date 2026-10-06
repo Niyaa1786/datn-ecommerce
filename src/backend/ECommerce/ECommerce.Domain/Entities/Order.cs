@@ -15,12 +15,16 @@ namespace ECommerce.Domain.Entities
         public string ShippingAddress { get; private set; }
         public decimal TotalAmount { get; private set; }
         public decimal DiscountAmount { get; private set; }
+        public int? CouponId { get; private set; }
         public OrderStatus Status { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
         public User User { get; private set; }
         public Payment Payment { get; private set; }
+        public Coupon? Coupon { get; private set; }
+
+        public decimal FinalAmount => TotalAmount - DiscountAmount;
 
         private readonly List<OrderItem> _items = new();
         public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
@@ -55,6 +59,19 @@ namespace ECommerce.Domain.Entities
             _items.Add(item);
             UpdatedAt = DateTime.UtcNow;
             return item;
+        }
+
+        public void ApplyCoupon(int couponId, decimal discountAmount)
+        {
+            if (Status != OrderStatus.Pending)
+                throw new DomainException("Coupon can only be applied to orders in the Pending state.");
+
+            if (discountAmount < 0 || discountAmount > TotalAmount)
+                throw new DomainException("Discount amount is invalid.");
+
+            CouponId = couponId;
+            DiscountAmount = discountAmount;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void AttachPayment(Payment payment)
