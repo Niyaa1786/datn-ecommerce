@@ -14,5 +14,6 @@ namespace ECommerce.Application.Features.Orders.CreateOrder
         public string ReceiverPhone { get; set; } = string.Empty;
         public string ShippingAddress { get; set; } = string.Empty;
         public PaymentMethod PaymentMethod { get; set; }
+        public string? CouponCode { get; set; }
     }
 }

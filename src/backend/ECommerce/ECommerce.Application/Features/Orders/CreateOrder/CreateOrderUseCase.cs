@@ -40,10 +40,24 @@ namespace ECommerce.Application.Features.Orders.CreateOrder
                 order.AddItem(variant.Id, variant.Product?.Name!, variant.SKU, cartItem.Quantity, variant.Price);
             }
 
-            var payment = new Payment(order.Id, request.PaymentMethod, totalAmount);
+            Coupon? coupon = null;
+            if (!string.IsNullOrWhiteSpace(request.CouponCode))
+            {
+                coupon = await unitOfWork.Coupons.GetByCodeAsync(request.CouponCode, ct);
+                if (coupon == null)
+                    throw new NotFoundException("Coupon code is invalid.");
+
+                var discountAmount = coupon.CalculateDiscount(totalAmount);
+                order.ApplyCoupon(coupon.Id, discountAmount);
+                coupon.Use();
+            }
+
+            var payment = new Payment(order.Id, request.PaymentMethod, order.FinalAmount);
             order.AttachPayment(payment);
 
             unitOfWork.Orders.Add(order);
+            if (coupon != null)
+                unitOfWork.Coupons.AddUsage(new CouponUsage(coupon.Id, request.UserId, order.Id));
             unitOfWork.Carts.Remove(cart);
 
             await unitOfWork.SaveChangesAsync(ct);
@@ -52,6 +66,8 @@ namespace ECommerce.Application.Features.Orders.CreateOrder
             {
                 OrderId = order.Id,
                 TotalAmount = totalAmount,
+                DiscountAmount = order.DiscountAmount,
+                FinalAmount = order.FinalAmount,
                 PaymentMethod = payment.Method,
                 Message = "Order created successfully."
             };
