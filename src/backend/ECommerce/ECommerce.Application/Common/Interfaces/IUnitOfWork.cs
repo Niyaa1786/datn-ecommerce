@@ -15,6 +15,8 @@ namespace ECommerce.Application.Common.Interfaces
         ICartRepository Carts { get; }
         IOrderRepository Orders { get; }
         IPaymentRepository Payments { get; }
+        ICouponRepository Coupons { get; }
+        IReviewRepository Reviews { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
